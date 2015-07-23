@@ -1,0 +1,22 @@
+<ion-view view-title="Cadastro">
+    <ion-content>
+        <form ng-submit="salvarContato(contato)">
+            <div class="list">
+                <label class="item item-input">
+                    <input type="text"
+                           ng-model="contato.nome"
+                           placeholder="Nome">
+                </label>
+                <label class="item item-input">
+                    <input type="text"
+                           ng-model="contato.telefone"
+                           placeholder="Telefone">
+                </label>
+                <button type="submit"
+                        class="button button-full button-positive">
+                    Salvar
+                </button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>
