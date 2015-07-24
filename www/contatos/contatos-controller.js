@@ -2,8 +2,8 @@
  * Created by JeanLucas on 23/07/2015.
  */
 angular.module('starter')
-    .controller('ContatosCtrl', function($scope, pouchDB){
-        var db = pouchDB('contatos'), pagina = 0;
+    .controller('ContatosCtrl', function($scope, $state, $ionicListDelegate, pouchDB){
+        var db = pouchDB('contatos'), registrosCarregados = 0;
 
         $scope.showSpinner = true;
 
@@ -19,17 +19,17 @@ angular.module('starter')
             return ping;
         }
 
-        function find(p){
+        function find(carregados){
             whenUnblocked().then(function(){
                 return db.find({
-                    skip: p*10,
+                    skip: carregados,
                     limit: 10,
                     selector: {type: 'tabelaContato', nome: {$exists: true}},
                     sort: ['nome']
                 });
             }).then(function(res){
                 if(res.docs.length > 0){
-                    ++pagina;
+                    registrosCarregados = registrosCarregados + res.docs.length;
                     $scope.contatos = $scope.contatos.concat(res.docs);
                 } else {
                     $scope.showSpinner = false;
@@ -43,18 +43,18 @@ angular.module('starter')
         }
 
         $scope.loadMore = function (){
-            find(pagina);
+            find(registrosCarregados);
         }
 
-        $scope.editarContato = function(contato){
-            $scope.contato = contato;
+        $scope.editarContato = function(contatoId){
+            $state.go('form', {id: contatoId});
         }
 
         $scope.excluirContato = function(contato){
             db.remove(contato).then(function(res){
-                $scope.contatos = [];
-                pagina = 0;
-                find(pagina);
+                $ionicListDelegate.closeOptionButtons();
+                $scope.contatos.splice($scope.contatos.indexOf(contato), 1);
+                --registrosCarregados;
             }).catch(function(err){
                 console.dir(err);
             });

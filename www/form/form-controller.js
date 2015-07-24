@@ -3,7 +3,19 @@
  */
 
 angular.module('starter')
-    .controller('FormCtrl', function($scope, pouchDB){
+    .controller('FormCtrl', function($scope, $state, $stateParams, pouchDB){
+        var db = pouchDB('contatos');
+
+        $scope.contato = {};
+
+        if($stateParams.id) {
+            db.find({
+                selector: {_id: $stateParams.id}
+            }).then(function(res){
+               $scope.contato = res.docs[0];
+            });
+        }
+
         $scope.salvarContato = function(contato){
             if(contato && contato.nome && contato.telefone){
 
@@ -21,9 +33,8 @@ angular.module('starter')
 
                 // Estudar promises
                 promise.then(function(res){
-                    $scope.contatos = [];
-                    pagina = 0;
-                    find(pagina);
+                    $scope.contato = {};
+                    $state.go('contatos');
                 }).catch(function(err){
                     console.dir(err);
                 });

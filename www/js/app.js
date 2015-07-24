@@ -19,12 +19,14 @@ angular.module('starter', ['ionic', 'pouchdb'])
         .state('contatos', {
             url: '/',
             templateUrl: 'contatos/contatos.html',
-            controller: 'ContatosCtrl'
+            controller: 'ContatosCtrl',
+            cache: false
         })
         .state('form', {
-            url: '/form',
+            url: '/form/:id',
             templateUrl: 'form/form.html',
-            controller: 'FormCtrl'
+            controller: 'FormCtrl',
+            cache: false
         });
 
         $urlRouterProvider.otherwise('/');
