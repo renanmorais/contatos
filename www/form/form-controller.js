@@ -3,7 +3,7 @@
  */
 
 angular.module('starter')
-    .controller('FormCtrl', function($scope, $state, $stateParams, pouchDB){
+    .controller('FormCtrl', function($scope, $state, $stateParams, $cordovaCamera, pouchDB){
         var db = pouchDB('contatos');
 
         $scope.contato = {};
@@ -45,7 +45,7 @@ angular.module('starter')
             }
         }
 
-         $scope.excluirContato = function(contato){
+        $scope.excluirContato = function(contato){
             db.remove(contato).then(function(res){
                   $state.go('contatos');
             }).catch(function(err){
@@ -53,5 +53,29 @@ angular.module('starter')
             });
 
 
+        }
+
+        $scope.getFoto = function(){
+            ionic.Platform.ready(function(){
+                var options = {
+                    quality: 85,
+                    destinationType: Camera.DestinationType.DATA_URL,
+                    sourceType: Camera.PictureSourceType.CAMERA,
+                    allowEdit: true,
+                    encodingType: Camera.EncodingType.JPEG,
+                    targetWidth: 100,
+                    targetHeight: 100,
+                    popoverOptions: CameraPopoverOptions
+                };
+
+                $cordovaCamera.getPicture(options).then(function(imageData) {
+                    $scope.contato.image = {};
+                    $scope.contato.image.src = "data:image/jpeg;base64," + imageData;
+
+                    console.dir(imageData);
+                }, function(err) {
+                    console.dir(err);
+                });
+            });
         }
     })

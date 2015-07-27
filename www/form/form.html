@@ -12,16 +12,23 @@
                            ng-model="contato.telefone"
                            placeholder="Telefone">
                 </label>
-                <button 
-                        ng-click="salvarContato(contato)"
-                        class="button button-full button-positive">
-                    Salvar
-                </button>
-                <button class="button button-full button-assertive"
-                    ng-click="excluirContato(contato)">
-                    Excluir
-                </button>
+                <div class="item">
+                    <img ng-src="{{contato.image.src}}" alt=""/>
+                </div>
             </div>
+            <button class="button button-full button-assertive"
+                    ng-click="getFoto()">
+                Foto
+            </button>
+            <button
+                    ng-click="salvarContato(contato)"
+                    class="button button-full button-positive">
+                Salvar
+            </button>
+            <button class="button button-full button-assertive"
+                    ng-click="excluirContato(contato)">
+                Excluir
+            </button>
         </form>
     </ion-content>
 </ion-view>
