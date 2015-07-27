@@ -3,18 +3,11 @@
         <a ng-href="#/form/" class="button button-assertive button-block">Novo</a>
         <ion-list>
             <ion-item class="item item-button-right"
+                      ng-click="editarContato(contato._id)"
                       ng-repeat="contato in contatos track by $index">
                 <h2>{{contato.nome}}</h2>
                 <p>{{contato.telefone}}</p>
-                <ion-option-button class="button-positive"
-                                   ng-click="editarContato(contato._id)">
-                    Editar
-                </ion-option-button>
-                <ion-option-button class="button-assertive"
-                                   ng-click="excluirContato(contato)">
-                    Excluir
-                </ion-option-button>
-            </ion-item>
+             </ion-item>
         </ion-list>
 
         <ion-infinite-scroll
