@@ -1,6 +1,6 @@
 <ion-view view-title="Cadastro">
     <ion-content>
-        <form ng-submit="salvarContato(contato)">
+        <form>
             <div class="list">
                 <label class="item item-input">
                     <input type="text"
@@ -12,9 +12,14 @@
                            ng-model="contato.telefone"
                            placeholder="Telefone">
                 </label>
-                <button type="submit"
+                <button 
+                        ng-click="salvarContato(contato)"
                         class="button button-full button-positive">
                     Salvar
+                </button>
+                <button class="button button-full button-assertive"
+                    ng-click="excluirContato(contato)">
+                    Excluir
                 </button>
             </div>
         </form>
