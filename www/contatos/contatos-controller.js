@@ -50,13 +50,5 @@ angular.module('starter')
             $state.go('form', {id: contatoId});
         }
 
-        $scope.excluirContato = function(contato){
-            db.remove(contato).then(function(res){
-                $ionicListDelegate.closeOptionButtons();
-                $scope.contatos.splice($scope.contatos.indexOf(contato), 1);
-                --registrosCarregados;
-            }).catch(function(err){
-                console.dir(err);
-            });
-        }
+       
     });
