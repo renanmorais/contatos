@@ -44,4 +44,14 @@ angular.module('starter')
                 alert('NÃÃÃÃÃO!');
             }
         }
+
+         $scope.excluirContato = function(contato){
+            db.remove(contato).then(function(res){
+                  $state.go('contatos');
+            }).catch(function(err){
+                console.dir(err);
+            });
+
+
+        }
     })
